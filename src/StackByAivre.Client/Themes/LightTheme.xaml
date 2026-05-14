@@ -1,0 +1,44 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Core Colors -->
+    <Color x:Key="BackgroundColor">#FAFAFA</Color>
+    <Color x:Key="SurfaceColor">#FFFFFF</Color>
+    <Color x:Key="CardColor">#F5F5F5</Color>
+    <Color x:Key="BorderColor">#E5E5E5</Color>
+    <Color x:Key="ForegroundColor">#0A0A0A</Color>
+    <Color x:Key="MutedColor">#525252</Color>
+    <Color x:Key="SubtleColor">#A3A3A3</Color>
+    <Color x:Key="AccentColorValue">#6366F1</Color>
+
+    <!-- Brushes -->
+    <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource BackgroundColor}" />
+    <SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource SurfaceColor}" />
+    <SolidColorBrush x:Key="CardBrush" Color="{StaticResource CardColor}" />
+    <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}" />
+    <SolidColorBrush x:Key="ForegroundBrush" Color="{StaticResource ForegroundColor}" />
+    <SolidColorBrush x:Key="MutedBrush" Color="{StaticResource MutedColor}" />
+    <SolidColorBrush x:Key="SubtleBrush" Color="{StaticResource SubtleColor}" />
+    <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentColorValue}" />
+    <SolidColorBrush x:Key="AccentGlowBrush" Color="#336366F1" />
+
+    <!-- Glass -->
+    <SolidColorBrush x:Key="GlassBrush" Color="#99FFFFFF" />
+    <SolidColorBrush x:Key="GlassBorderBrush" Color="#33000000" />
+    <SolidColorBrush x:Key="GlassHoverBrush" Color="#CCFFFFFF" />
+
+    <!-- Text -->
+    <SolidColorBrush x:Key="PrimaryTextBrush" Color="#0A0A0A" />
+    <SolidColorBrush x:Key="SecondaryTextBrush" Color="#525252" />
+    <SolidColorBrush x:Key="TertiaryTextBrush" Color="#A3A3A3" />
+
+    <!-- Sidebar -->
+    <SolidColorBrush x:Key="SidebarBrush" Color="#F5F5F5" />
+    <SolidColorBrush x:Key="SidebarActiveBrush" Color="#E5E5E5" />
+
+    <!-- Input -->
+    <SolidColorBrush x:Key="InputBrush" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="InputBorderBrush" Color="#D4D4D4" />
+    <SolidColorBrush x:Key="InputFocusBrush" Color="{StaticResource AccentColorValue}" />
+
+</ResourceDictionary>

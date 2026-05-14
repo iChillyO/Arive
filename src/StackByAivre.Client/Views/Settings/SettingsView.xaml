@@ -1,0 +1,76 @@
+<UserControl x:Class="StackByAivre.Client.Views.Settings.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <StackPanel Margin="32">
+            <TextBlock Text="Settings" Foreground="{DynamicResource ForegroundBrush}" FontSize="24" FontWeight="Bold" Margin="0,0,0,4" />
+            <TextBlock Text="Customize your workspace" Foreground="{DynamicResource SubtleBrush}" FontSize="13" Margin="0,0,0,24" />
+
+            <!-- Theme -->
+            <Border Style="{StaticResource GlassCard}" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Theme Mode" Foreground="{DynamicResource ForegroundBrush}" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,12" />
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton x:Name="DarkRadio" GroupName="Theme" IsChecked="True" Margin="0,0,16,0" Checked="DarkTheme_Checked">
+                            <Border Padding="16,10" CornerRadius="8" Background="{DynamicResource SidebarActiveBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1">
+                                <TextBlock Text="Dark" Foreground="{DynamicResource ForegroundBrush}" FontSize="13" />
+                            </Border>
+                        </RadioButton>
+                        <RadioButton x:Name="LightRadio" GroupName="Theme" Checked="LightTheme_Checked">
+                            <Border Padding="16,10" CornerRadius="8" Background="{DynamicResource SidebarActiveBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1">
+                                <TextBlock Text="Light" Foreground="{DynamicResource ForegroundBrush}" FontSize="13" />
+                            </Border>
+                        </RadioButton>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Accent Color -->
+            <Border Style="{StaticResource GlassCard}" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Accent Color" Foreground="{DynamicResource ForegroundBrush}" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,12" />
+                    <WrapPanel x:Name="AccentColorPanel">
+                        <Ellipse Width="28" Height="28" Fill="#6366F1" Margin="0,0,8,8" Cursor="Hand" MouseLeftButtonDown="AccentColor_Click" Tag="#6366F1" />
+                        <Ellipse Width="28" Height="28" Fill="#3B82F6" Margin="0,0,8,8" Cursor="Hand" MouseLeftButtonDown="AccentColor_Click" Tag="#3B82F6" />
+                        <Ellipse Width="28" Height="28" Fill="#06B6D4" Margin="0,0,8,8" Cursor="Hand" MouseLeftButtonDown="AccentColor_Click" Tag="#06B6D4" />
+                        <Ellipse Width="28" Height="28" Fill="#10B981" Margin="0,0,8,8" Cursor="Hand" MouseLeftButtonDown="AccentColor_Click" Tag="#10B981" />
+                        <Ellipse Width="28" Height="28" Fill="#F59E0B" Margin="0,0,8,8" Cursor="Hand" MouseLeftButtonDown="AccentColor_Click" Tag="#F59E0B" />
+                        <Ellipse Width="28" Height="28" Fill="#F43F5E" Margin="0,0,8,8" Cursor="Hand" MouseLeftButtonDown="AccentColor_Click" Tag="#F43F5E" />
+                        <Ellipse Width="28" Height="28" Fill="#A855F7" Margin="0,0,8,8" Cursor="Hand" MouseLeftButtonDown="AccentColor_Click" Tag="#A855F7" />
+                        <Ellipse Width="28" Height="28" Fill="#E5E5E5" Margin="0,0,0,8" Cursor="Hand" MouseLeftButtonDown="AccentColor_Click" Tag="#E5E5E5" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- AI Model -->
+            <Border Style="{StaticResource GlassCard}" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Default AI Model" Foreground="{DynamicResource ForegroundBrush}" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,12" />
+                    <ComboBox Width="200" HorizontalAlignment="Left" Background="{DynamicResource InputBrush}" FontSize="13">
+                        <ComboBoxItem Content="GPT-4o" IsSelected="True" />
+                        <ComboBoxItem Content="GPT-4" />
+                        <ComboBoxItem Content="Claude Sonnet" />
+                        <ComboBoxItem Content="Gemini Pro" />
+                        <ComboBoxItem Content="DeepSeek Chat" />
+                        <ComboBoxItem Content="Mistral Large" />
+                        <ComboBoxItem Content="Ollama Local" />
+                    </ComboBox>
+                </StackPanel>
+            </Border>
+
+            <!-- Voice -->
+            <Border Style="{StaticResource GlassCard}">
+                <StackPanel>
+                    <TextBlock Text="Voice Settings" Foreground="{DynamicResource ForegroundBrush}" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,12" />
+                    <Grid>
+                        <StackPanel>
+                            <TextBlock Text="Voice Mode Enabled" Foreground="{DynamicResource MutedBrush}" FontSize="13" />
+                            <TextBlock Text="Enable real-time voice conversations" Foreground="{DynamicResource SubtleBrush}" FontSize="11" />
+                        </StackPanel>
+                        <CheckBox IsChecked="True" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

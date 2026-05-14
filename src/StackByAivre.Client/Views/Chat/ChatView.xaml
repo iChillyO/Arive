@@ -1,0 +1,73 @@
+<UserControl x:Class="StackByAivre.Client.Views.Chat.ChatView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Model selector bar -->
+        <Border Grid.Row="0" Margin="0,0,0,16">
+            <StackPanel Orientation="Horizontal">
+                <Border Background="{DynamicResource SidebarActiveBrush}" CornerRadius="8" Padding="10,6">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Width="8" Height="8" Fill="{DynamicResource AccentBrush}" Margin="0,0,8,0" />
+                        <TextBlock x:Name="ModelLabel" Text="GPT-4o" Foreground="{DynamicResource ForegroundBrush}" FontSize="12" FontWeight="Medium" />
+                        <TextBlock Text=" / OpenAI" Foreground="{DynamicResource SubtleBrush}" FontSize="12" />
+                    </StackPanel>
+                </Border>
+                <TextBlock x:Name="MessageCount" Text="0 messages" Foreground="{DynamicResource TertiaryTextBrush}" FontSize="11"
+                           VerticalAlignment="Center" Margin="16,0,0,0" />
+            </StackPanel>
+        </Border>
+
+        <!-- Messages -->
+        <ScrollViewer Grid.Row="1" x:Name="MessagesScroll" VerticalScrollBarVisibility="Hidden">
+            <ItemsControl x:Name="MessagesList">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="0,0,0,12" Padding="16,12" CornerRadius="12"
+                                Background="{DynamicResource CardBrush}" MaxWidth="600">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Role}" FontSize="10" FontWeight="Medium"
+                                           Foreground="{DynamicResource SubtleBrush}" Margin="0,0,0,4" />
+                                <TextBlock Text="{Binding Content}" TextWrapping="Wrap" FontSize="13"
+                                           Foreground="{DynamicResource ForegroundBrush}" LineHeight="20" />
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!-- Empty state -->
+        <StackPanel Grid.Row="1" x:Name="EmptyState" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Border Width="64" Height="64" CornerRadius="16" Background="{DynamicResource AccentBrush}" Opacity="0.4"
+                    HorizontalAlignment="Center" Margin="0,0,0,16">
+                <TextBlock Text="&#xE8BD;" FontFamily="Segoe MDL2 Assets" FontSize="28" Foreground="White"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+            <TextBlock Text="Start a conversation" Foreground="{DynamicResource ForegroundBrush}" FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,0,0,4" />
+            <TextBlock Text="Ask anything. Generate code, analyze data, or brainstorm." Foreground="{DynamicResource SubtleBrush}" FontSize="13" HorizontalAlignment="Center" />
+        </StackPanel>
+
+        <!-- Input -->
+        <Border Grid.Row="2" Style="{StaticResource GlassPanel}" Padding="8" Margin="0,16,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="InputBox" Grid.Column="0" Style="{StaticResource GlassInput}"
+                         BorderThickness="0" Background="Transparent" FontSize="13"
+                         VerticalAlignment="Center" KeyDown="InputBox_KeyDown" />
+                <Button x:Name="SendButton" Grid.Column="1" Style="{StaticResource AccentButton}"
+                        Padding="12,8" Margin="8,0,0,0" Click="SendButton_Click">
+                    <TextBlock Text="&#xE724;" FontFamily="Segoe MDL2 Assets" FontSize="14" />
+                </Button>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
