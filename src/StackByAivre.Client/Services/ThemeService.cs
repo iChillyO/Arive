@@ -3,12 +3,14 @@ using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using StackByAivre.Shared.Domain.Enums;
 
+using AppThemeMode = StackByAivre.Shared.Domain.Enums.ThemeMode;
+
 namespace StackByAivre.Client.Services;
 
 public partial class ThemeService : ObservableObject
 {
     [ObservableProperty]
-    private ThemeMode _currentTheme = ThemeMode.Dark;
+    private AppThemeMode _currentTheme = AppThemeMode.Dark;
 
     [ObservableProperty]
     private string _accentColorHex = "#6366f1";
@@ -19,7 +21,7 @@ public partial class ThemeService : ObservableObject
     [ObservableProperty]
     private string? _wallpaperPath;
 
-    public void SetTheme(ThemeMode theme)
+    public void SetTheme(AppThemeMode theme)
     {
         CurrentTheme = theme;
         ApplyTheme();
@@ -44,7 +46,7 @@ public partial class ThemeService : ObservableObject
 
         var uri = CurrentTheme switch
         {
-            ThemeMode.Light => new Uri("/Themes/LightTheme.xaml", UriKind.Relative),
+            AppThemeMode.Light => new Uri("/Themes/LightTheme.xaml", UriKind.Relative),
             _ => new Uri("/Themes/DarkTheme.xaml", UriKind.Relative)
         };
 

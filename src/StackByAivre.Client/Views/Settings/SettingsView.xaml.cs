@@ -4,7 +4,8 @@ using System.Windows.Input;
 using System.Windows.Shapes;
 using Microsoft.Extensions.DependencyInjection;
 using StackByAivre.Client.Services;
-using StackByAivre.Shared.Domain.Enums;
+
+using AppThemeMode = StackByAivre.Shared.Domain.Enums.ThemeMode;
 
 namespace StackByAivre.Client.Views.Settings;
 
@@ -20,12 +21,12 @@ public partial class SettingsView : UserControl
 
     private void DarkTheme_Checked(object sender, RoutedEventArgs e)
     {
-        _themeService.SetTheme(ThemeMode.Dark);
+        _themeService.SetTheme(AppThemeMode.Dark);
     }
 
     private void LightTheme_Checked(object sender, RoutedEventArgs e)
     {
-        _themeService.SetTheme(ThemeMode.Light);
+        _themeService.SetTheme(AppThemeMode.Light);
     }
 
     private void AccentColor_Click(object sender, MouseButtonEventArgs e)
