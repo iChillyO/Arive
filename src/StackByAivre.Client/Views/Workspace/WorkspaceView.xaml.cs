@@ -1,16 +1,25 @@
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using StackByAivre.Client.Views.Chat;
+using System.Windows.Threading;
+using Microsoft.Extensions.DependencyInjection;
+using StackByAivre.Client.Services;
 using StackByAivre.Client.Views.Settings;
-using StackByAivre.Client.Views.Voice;
+
+using AppThemeMode = StackByAivre.Shared.Domain.Enums.ThemeMode;
 
 namespace StackByAivre.Client.Views.Workspace;
 
 public partial class WorkspaceView : UserControl
 {
+    private readonly ThemeService _themeService;
+    private DispatcherTimer? _voiceTimer;
+    private TimeSpan _voiceElapsed = TimeSpan.Zero;
+
     public WorkspaceView()
     {
         InitializeComponent();
+        _themeService = App.Services.GetRequiredService<ThemeService>();
         ShowDashboard();
     }
 
@@ -21,11 +30,6 @@ public partial class WorkspaceView : UserControl
             WorkspaceContent.Content = tag switch
             {
                 "Dashboard" => new DashboardView(),
-                "Chat" => new ChatView(),
-                "Coder" => new ChatView(),
-                "Image" => new ChatView(),
-                "Voice" => new VoiceView(),
-                "Research" => new ChatView(),
                 "Settings" => new SettingsView(),
                 _ => new DashboardView()
             };
@@ -35,5 +39,34 @@ public partial class WorkspaceView : UserControl
     private void ShowDashboard()
     {
         WorkspaceContent.Content = new DashboardView();
+    }
+
+    private void ThemeToggle_Click(object sender, RoutedEventArgs e)
+    {
+        var newTheme = _themeService.CurrentTheme == AppThemeMode.Dark
+            ? AppThemeMode.Light
+            : AppThemeMode.Dark;
+        _themeService.SetTheme(newTheme);
+
+        ThemeIcon.Text = newTheme == AppThemeMode.Dark ? "\uE708" : "\uE706";
+    }
+
+    public void ShowVoiceCall()
+    {
+        VoiceCallWidget.Visibility = Visibility.Visible;
+        _voiceElapsed = TimeSpan.Zero;
+        _voiceTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
+        _voiceTimer.Tick += (_, _) =>
+        {
+            _voiceElapsed = _voiceElapsed.Add(TimeSpan.FromSeconds(1));
+            VoiceCallDuration.Text = _voiceElapsed.ToString(@"mm\:ss");
+        };
+        _voiceTimer.Start();
+    }
+
+    private void EndVoiceCall_Click(object sender, RoutedEventArgs e)
+    {
+        _voiceTimer?.Stop();
+        VoiceCallWidget.Visibility = Visibility.Collapsed;
     }
 }
