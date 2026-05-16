@@ -149,15 +149,14 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // Middleware pipeline
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 
-    // Auto-migrate in development
-    using var scope = app.Services.CreateScope();
+// Ensure database tables are created
+using (var scope = app.Services.CreateScope())
+{
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    await dbContext.Database.MigrateAsync();
+    await dbContext.Database.EnsureCreatedAsync();
 }
 
 app.UseCors();
