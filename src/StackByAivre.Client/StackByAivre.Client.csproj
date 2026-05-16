@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <ApplicationDefinition Include="App\App.xaml" />
-    <Compile Include="App\App.xaml.cs" DependentUpon="App.xaml" />
+    <Compile Update="App\App.xaml.cs" DependentUpon="App.xaml" />
   </ItemGroup>
 
   <ItemGroup>
