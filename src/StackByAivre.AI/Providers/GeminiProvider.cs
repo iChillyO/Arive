@@ -86,6 +86,8 @@ public class GeminiProvider : IAiService
 
             var data = line["data: ".Length..];
 
+            string? parsedToken = null;
+
             try
             {
                 var chunk = JsonDocument.Parse(data);
@@ -98,16 +100,17 @@ public class GeminiProvider : IAiService
                         candidateContent.TryGetProperty("parts", out var parts) &&
                         parts.GetArrayLength() > 0)
                     {
-                        var text = parts[0].GetProperty("text").GetString();
-                        if (!string.IsNullOrEmpty(text))
-                            yield return text;
+                        parsedToken = parts[0].GetProperty("text").GetString();
                     }
                 }
             }
             catch (JsonException)
             {
-                continue;
+                // Skip malformed lines
             }
+
+            if (!string.IsNullOrEmpty(parsedToken))
+                yield return parsedToken;
         }
     }
 

@@ -84,6 +84,9 @@ public class AnthropicProvider : IAiService
 
             var data = line["data: ".Length..];
 
+            string? parsedToken = null;
+            bool isDone = false;
+
             try
             {
                 var chunk = JsonDocument.Parse(data);
@@ -94,20 +97,24 @@ public class AnthropicProvider : IAiService
                     var delta = chunk.RootElement.GetProperty("delta");
                     if (delta.TryGetProperty("text", out var textToken))
                     {
-                        var token = textToken.GetString();
-                        if (!string.IsNullOrEmpty(token))
-                            yield return token;
+                        parsedToken = textToken.GetString();
                     }
                 }
                 else if (type == "message_stop")
                 {
-                    yield break;
+                    isDone = true;
                 }
             }
             catch (JsonException)
             {
-                continue;
+                // Skip malformed lines
             }
+
+            if (isDone)
+                yield break;
+
+            if (!string.IsNullOrEmpty(parsedToken))
+                yield return parsedToken;
         }
     }
 

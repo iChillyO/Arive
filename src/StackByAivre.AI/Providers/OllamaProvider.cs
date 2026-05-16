@@ -60,30 +60,34 @@ public class OllamaProvider : IAiService
             if (string.IsNullOrWhiteSpace(line))
                 continue;
 
+            string? parsedToken = null;
+            bool isDone = false;
+
             try
             {
                 var chunk = JsonDocument.Parse(line);
 
-                // Check if done
                 if (chunk.RootElement.TryGetProperty("done", out var doneToken) &&
                     doneToken.GetBoolean())
                 {
-                    yield break;
+                    isDone = true;
                 }
-
-                // Extract content from message
-                if (chunk.RootElement.TryGetProperty("message", out var message) &&
+                else if (chunk.RootElement.TryGetProperty("message", out var message) &&
                     message.TryGetProperty("content", out var contentToken))
                 {
-                    var token = contentToken.GetString();
-                    if (!string.IsNullOrEmpty(token))
-                        yield return token;
+                    parsedToken = contentToken.GetString();
                 }
             }
             catch (JsonException)
             {
-                continue;
+                // Skip malformed lines
             }
+
+            if (isDone)
+                yield break;
+
+            if (!string.IsNullOrEmpty(parsedToken))
+                yield return parsedToken;
         }
     }
 
